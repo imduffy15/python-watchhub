@@ -1,0 +1,13 @@
+language: python
+python:
+  - "3.7"
+  - "3.8"
+install:
+  - pip install .
+  - pip install flake8 pylint coveralls
+  - python setup.py develop
+script:
+  - flake8 watchhub/ && pylint watchhub/
+  - coverage run --source watchhub -m unittest discover -s tests/ -t . && coverage report -m
+after_success:
+  - coveralls
